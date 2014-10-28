@@ -20,7 +20,6 @@ static void onTrackbar(int, void*)
 
     image.copyTo(cedge, edge);
     imshow("Edge map", cedge);
-    imshow("original1", image);
 }
 
 static void help()
