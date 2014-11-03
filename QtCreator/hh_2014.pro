@@ -15,8 +15,7 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES +=  sim_color.cpp # \
-            #edge.cpp
+SOURCES += sim_color.cpp
 
 
 # LIBS += -L/opt/opencv-2.4.9/release/lib

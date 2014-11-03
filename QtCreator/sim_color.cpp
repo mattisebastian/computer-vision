@@ -3,25 +3,13 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #include <stdio.h>
+#include <iostream>
 
 using namespace cv;
 using namespace std;
 
 int edgeThresh = 1;
-Mat inputimage;
-
-// define a trackbar callback
-//static void onTrackbar(int, void*)
-//{
-//    blur(gray, edge, Size(3,3));
-
-//    // Run the edge detector on grayscale
-//    Canny(edge, edge, edgeThresh, edgeThresh*3, 3);
-//    cedge = Scalar::all(0);
-
-//    image.copyTo(cedge, edge);
-//    imshow("Edge map", cedge);
-//}
+Mat image0, image;
 
 static void help()
 {
@@ -35,12 +23,26 @@ const char* keys =
     "{1| |fruits.jpg|input image name}"
 };
 
+static void onMouse( int event, int x, int y, int, void* )
+{
+    if( event != CV_EVENT_LBUTTONDOWN )
+        return;
+
+    Point seed = Point(x,y);
+    // check if seed is inside the image
+    cout << seed << "\n";
+    cout << x << ", " << y << " pixel is selected.\n";
+
+
+}
+
+
 void simcolor(Mat& myImage, Mat& Result)
 {
     CV_Assert(myImage.depth() == CV_8U); // accept only uchar image
 
     Result.create(myImage.size(), myImage.channels());
-    const int nChannels = myImage.channels();
+    //const int nChannels = myImage.channels();
 
     // use filter2D here!
 
@@ -48,40 +50,36 @@ void simcolor(Mat& myImage, Mat& Result)
 
 }
 
-int main( int argc, const char** argv )
+int main( int argc, char** argv )
 {
-    help();
+    char* filename = argc >= 2 ? argv[1] : (char*)"fruits.jpg";
+    image0 = imread(filename, 1);
 
-    CommandLineParser parser(argc, argv, keys);
-    string imageName = parser.get<string>("1");
-
-    inputimage = imread(imageName, 1);
-    if(inputimage.empty())
+    if( image0.empty() )
     {
-        printf("Cannot read image file: %s\n", imageName.c_str());
-        help();
-        return -1;
+        cout << "Image empty. Usage: ffilldemo <image_name>\n";
+        return 0;
     }
-
+    help();
+    image0.copyTo(image);
     Mat resultimage;
 
-    simcolor(inputimage, resultimage);
+    //simcolor(image, resultimage);
 
     // Save the image on disk
-    imwrite("../output_images/Gray_imageNEU.jpg", resultimage);
+    //imwrite("../output_images/Gray_imageNEU.jpg", resultimage);
 
     // Show the image
-    namedWindow( imageName, CV_WINDOW_AUTOSIZE );
-    namedWindow( "Gray image", CV_WINDOW_AUTOSIZE );
+    namedWindow( "image", CV_WINDOW_AUTOSIZE );
+    //namedWindow( "Gray image", CV_WINDOW_AUTOSIZE );
 
-    imshow( imageName, inputimage );
-    imshow( "Gray image", resultimage );
+    setMouseCallback( "image", onMouse, 0 );
 
+    imshow( "image", image );
 
 
     // Wait for a key stroke; the same function arranges events processing
     waitKey(0);
+    return 0;
 
 }
-
-
