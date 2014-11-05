@@ -10,7 +10,7 @@ using namespace std;
 
 int edgeThresh = 1;
 Mat input, output;
-int DMax = 50;
+int DMax = 20;
 
 
 static void help()
@@ -32,69 +32,77 @@ void simcolor(Mat& myImage, Point seed, Mat& Result)
 
     // find similar colored regions
     // set DMax via trackbar
-    int DMax = 50;
-
-    cout << seed << "\n";
-
-    //         << "G: " << intensity.val[1]
-    //         << "R: " << intensity.val[2] << endl;
-
-
 
     Result.create(myImage.size(), myImage.channels());
-    //const int nChannels = myImage.channels();
 
-    // use filter2D here!
 
 
 }
 
-static void onMouse( int event, int x, int y, int, void* )
+static void onMouse( int event, int row, int col, int, void* )
 {
     if( event != CV_EVENT_LBUTTONDOWN )
         return;
+    // the point where the user clicked
+    Point seed = Point(row, col);
 
-    Point seed = Point(x,y);
-
+    // the color of the point where the user clicked
     Vec3b selectioncolor = input.at<Vec3b>(seed.y, seed.x);
-    uchar bclick = selectioncolor[0];
-    int bc = static_cast<int>(bclick);
-    uchar gclick = selectioncolor[1];
-    int gc = static_cast<int>(gclick);
-    uchar rclick = selectioncolor[2];
-    int rc = static_cast<int>(rclick);
 
-    vector<Vec3b> simregions;
+    int bc = static_cast<int>(selectioncolor[0]);
+    int gc = static_cast<int>(selectioncolor[1]);
+    int rc = static_cast<int>(selectioncolor[2]);
 
-    // traverse over full input
+    // vector of points where the color difference is less than DMax
+    vector<Point> simregions;
+
+    //    // traverse over full input image
     for (int y = 0; y < input.rows; ++y )
     {
-        // const float* row_ptr = input.ptr<float>(y);
+
         for (int x = 0; x < input.cols; ++x)
         {
-              Vec3b tempcolor = input.at<Vec3b>(y, x);
+            // the color of the pixel currently looked at
+            Vec3b tempcolor = input.at<Vec3b>(y, x);
 
-              // check for color range
-              int bi = static_cast<int>(tempcolor[0]);
-              int gi = static_cast<int>(tempcolor[1]);
-              int ri = static_cast<int>(tempcolor[2]);
-
-
-              float D = sqrt(pow(bc - bi, 2) + pow(gc - gi, 2) + pow(rc - ri, 2));
+            // check for color range
+            int bi = static_cast<int>(tempcolor.val[0]);
+            int gi = static_cast<int>(tempcolor.val[1]);
+            int ri = static_cast<int>(tempcolor.val[2]);
 
 
-              if(D < DMax)
-              {
-                  simregions.push_back(tempcolor);
-              }
+            float D = sqrt(pow(bc - bi, 2) + pow(gc - gi, 2) + pow(rc - ri, 2));
+
+            if(D < DMax)
+            {
+                Point matchingPixel = Point(x, y);
+                simregions.push_back(matchingPixel);
+            }
 
         }
     }
 
-    cout << "B: " << static_cast<int>(selectioncolor[0]) << endl;
 
-    for( vector<Vec3b>::const_iterator i = simregions.begin(); i != simregions.end(); ++i)
-        cout << *i << ' ';
+        for( vector<Point>::iterator i = simregions.begin(); i != simregions.end(); ++i)
+        {
+    //        // turn all pixle in the result vector white
+    ////        cout << "former color: " << input.at<Vec3b>(*i)[0] << endl;
+    //        input.at<Vec3b>(*i)[0] = 255;
+    ////        cout <<  "now set to: " << input.at<Vec3b>(i->x, i->y)[0] << endl;
+    //        input.at<Vec3b>(i->x, i->y)[1] = 255;
+    //        input.at<Vec3b>(i->x, i->y)[2] = 255;
+
+            if(i->x < 512 || i->y < 480)
+            {
+               cout << "schwarzes schaaf: " <<*i << endl;
+            }
+
+
+        }
+    cout << input.size() << endl;
+    cout << "similar pixels selected: "<< simregions.size() << endl;
+
+    imshow( "input", input );
 
     // check if seed is inside the input
     // simcolor(input, seed, resultinput);
