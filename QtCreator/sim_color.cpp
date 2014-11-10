@@ -57,13 +57,13 @@ static void onMouse( int event, int row, int col, int, void* )
     vector<Point> simregions;
 
     //    // traverse over full input image
-    for (int y = 0; y < input.rows; ++y )
+    for (int x = 0; x < input.rows; ++x )
     {
 
-        for (int x = 0; x < input.cols; ++x)
+        for (int y = 0; y < input.cols; ++y)
         {
             // the color of the pixel currently looked at
-            Vec3b tempcolor = input.at<Vec3b>(y, x);
+            Vec3b tempcolor = input.at<Vec3b>(x, y);
 
             // check for color range
             int bi = static_cast<int>(tempcolor.val[0]);
@@ -85,17 +85,11 @@ static void onMouse( int event, int row, int col, int, void* )
 
         for( vector<Point>::iterator i = simregions.begin(); i != simregions.end(); ++i)
         {
-    //        // turn all pixle in the result vector white
-    ////        cout << "former color: " << input.at<Vec3b>(*i)[0] << endl;
-    //        input.at<Vec3b>(*i)[0] = 255;
-    ////        cout <<  "now set to: " << input.at<Vec3b>(i->x, i->y)[0] << endl;
-    //        input.at<Vec3b>(i->x, i->y)[1] = 255;
-    //        input.at<Vec3b>(i->x, i->y)[2] = 255;
+            // turn all pixle in the result vector white
 
-            if(i->x < 512 || i->y < 480)
-            {
-               cout << "schwarzes schaaf: " <<*i << endl;
-            }
+            input.at<Vec3b>(i->x, i->y)[0] = 255;
+            input.at<Vec3b>(i->x, i->y)[1] = 255;
+            input.at<Vec3b>(i->x, i->y)[2] = 255;
 
 
         }
