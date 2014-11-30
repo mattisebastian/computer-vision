@@ -1,0 +1,14 @@
+Hallo Herr Engelmohr,
+
+für diese Aufgabe haben Sie nur 2 Punkte. Die Gründe dafür sind:
+
+1) Bei allen Operationen überschreiben Sie gleich die alten Werte in "newImage" (z.B. Zeilen 164-173 in main.cpp bei BoxFilter). Gleich danach lesen Sie sie wieder, d.h. nicht die originalen Werte aus dem Ausgangsbild, sondern die bereits überschriebenen. Dasselbe betrifft Median. Das merkt man nicht, wenn die Fenstergrößen klein sind. Es ist aber nicht korrekt. Man muss immer die alten Werte lesen und die neuen schreiben.
+
+2) Sie haben alles nur für die Fenster 3x3 geschrieben (Box Filter ist die Sequenzielle Anwendung, ich meine damit eine "elementare" Filterung). Es wurde eigentlich erwartet, dass man das variabel macht, damit man das mit verschiedenen Größen probieren (testen auf Korrektheit, Effizienz etc.) kann.
+
+3) An einer Stelle gibt es etwas, was ich nicht ganz verstehe -- eigentlich sollte das Programm abstürzen, und zwar:  Sie greifen ständig die Pixel mit den Koordinaten z.B. newImage.cols oder newImage.rows zu. Solche Pixel existieren aber gar nicht -- die größte Koordinaten sind newImage.cols-1 bzw. newImage.rows-1. An dieser Stelle sollte eigentlich "Segmentation fault" entstehen. Möglicherweise werden solche Zugriffe durch OpenCV abgefangen, man weißt aber nicht was für Werte in diesem Fall zurückgeliefert werden. Auf jeden Fall ist das nicht korrekt.
+
+Somit haben Sie aktuell 6 Punkte insgesamt.
+
+Viele Grüße
+Dmitrij Schlesinger 

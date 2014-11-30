@@ -1,0 +1,11 @@
+Sehr geehrter Herr Shlezinger,
+
+im Anhang finden Sie den Fast Median Filter für Computer Vision.
+
+HOWTO:
+Quelltext und Fast_Median.pro in QtCreator einfügen und dort kompilieren. Ich verwende momentan OpenCV 2.4.6.1.
+
+
+Viele Grüße
+Jan Engelmohr
+Matrikelnr.: 3753042 
