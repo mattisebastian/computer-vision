@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <set>
+#include <chrono>
 
 using namespace cv;
 using namespace std;
@@ -58,6 +59,8 @@ int circular(int max, int point)
 
 static void morph_max()
 {
+    auto start = chrono::steady_clock::now();
+
 
     cout << "morph_max called" << endl;
     // border method: leave out border
@@ -97,8 +100,11 @@ static void morph_max()
             }
         }
     }
+    auto end = chrono::steady_clock::now();
     imshow("input", dst);
     cout << "done." << endl;
+    auto diff = end - start;
+    cout << chrono::duration <double, milli> (diff).count() << " ms" << endl;
 }
 
 
