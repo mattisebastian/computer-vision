@@ -15,7 +15,10 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += sim_color.cpp
+SOURCES += \
+    simple_boxfilter.cpp \
+    boxfilter.cpp \
+    morph_max.cpp \
 
 
 # LIBS += -L/opt/opencv-2.4.9/release/lib
