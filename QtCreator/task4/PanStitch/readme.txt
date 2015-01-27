@@ -60,3 +60,6 @@ Ideen
 - Matching besser machen, ist momentan noch brute force
 - Beleuchtung angleichen (haben Matches selbe Farbe?)
 	- Durchschnitt der Helligkeit bilden
+- anderen Feature/Interestpoint detektor schreiben
+- RANSAC selber machen
+- mehrere Bilder stitchen

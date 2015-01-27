@@ -51,3 +51,12 @@ Windows, Visual Studio, Release -- 18 sec
 Linux, QtCreator, Debug         -- 37 sec
 Linux, QtCreator, Release       -- 17 sec
 Linux, Makefile (release)       -- 17 sec 
+
+
+
+Ideen
+-----
+
+- Matching besser machen, ist momentan noch brute force
+- Beleuchtung angleichen (haben Matches selbe Farbe?)
+	- Durchschnitt der Helligkeit bilden
