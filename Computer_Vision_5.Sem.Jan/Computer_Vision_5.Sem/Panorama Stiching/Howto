@@ -1,0 +1,25 @@
+Sehr geehrter Herr Schlesinger,
+
+im Anhang finden Sie meine Verbesserung für die Panorama Stiching Übung
+in Computer Vision.
+In meiner Version werden die Matches zwischen den Bildern genauer
+bestimmt. Dies geschieht mittels vorheriger Skalierung und
+anschließender Nutzung eines KD-Baumes.
+
+Folgende Dateien wurden verändert:
+-> ps.h
+-> Matching.cpp
+-> ps_main.cpp
+
+HOWTO:
+Entpacken, in Ordner "linux_makefile" "make clean" bzw. "make"
+ausführen. Danach "./panst *bild1* *bild2*" ausführen.
+
+Können Sie mir außerdem mitteilen, wieviele Punkte ich bereits erreicht
+habe?
+
+
+Viele Grüße
+
+Jan Engelmohr
+Matrikelnr. 3753042
